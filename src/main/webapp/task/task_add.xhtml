@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"     
+      xmlns:jsf="http://xmlns.jcp.org/jsf"         
+      xmlns:passthrough="http://xmlns.jcp.org/jsf/passthrough"     
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">     
+
+    <f:view contracts="default" transient="false">
+        <ui:composition template="/template.xhtml">   
+            <ui:define name="header">
+               
+            </ui:define>
+            <ui:define name="content"> 
+
+                <div class="container">
+                   
+                    <div class="panel panel-primary">
+                        <div class="panel-heading"><h3 class="panel-title">#{i18n.addTask}</h3></div>
+                        <div class="panel-body">
+                        <h:form enctype="multipart/form-data" >  
+                            <h:panelGrid columns="2">
+                                <h:outputLabel for="name" value="#{i18n.title}*" />
+                                <p:inputText id="name"
+                                             value="#{taskListBean.newTaskBean.name}" required="true" >
+                                    <f:validateLength minimum="2" />
+                                </p:inputText>
+                                <h:outputLabel for="description" value="#{i18n.desc}*" />
+                                <p:inputTextarea id="description" cols="40" rows="10"
+                                                 value="#{taskListBean.newTaskBean.description}" required="true" >
+                                </p:inputTextarea>
+
+                               
+                                  <h:outputLabel for="taskStatus" value="#{i18n.status}*" />
+                                <p:selectOneMenu id="taskStatus" value="#{taskListBean.newTaskBean.status_id}">
+                                    <f:selectItems  value="#{taskListBean.allStatusSelectItems}" />
+                                </p:selectOneMenu>
+                                 
+                                   <h:outputLabel for="user" value="#{i18n.assign}" />
+                                <p:selectOneMenu id="user" value="#{taskListBean.newTaskBean.assign_user_id}">
+                                    <f:selectItems  value="#{taskListBean.allUsersSelectItems}" />
+                                </p:selectOneMenu>
+                                    <h:outputLabel for="priority" value="#{i18n.priority}*" />
+                                <p:selectOneMenu id="priority" value="#{taskListBean.newTaskBean.priority_id}">
+                                    <f:selectItems  value="#{taskListBean.allPrioritySelectItems}" />
+                                </p:selectOneMenu>
+                               <h:commandButton value="Save" class="btn btn-success" action="#{taskListBean.create}"/> 
+                              
+                         </h:panelGrid>  
+                            <h:panelGrid rendered="#{taskListBean.newTaskBean.id > 0}" columns="2">
+                                <h:outputLabel for="description" value="already attached file" />
+                                <ui:repeat value="#{taskListBean.newTaskBean.fileList}" var="fileItem" >
+                                    <a href="#{fileItem.fileLink}">#{fileItem.name}</a> 
+                                    
+                                    <h:commandLink action="#{taskListBean.deleteFile}">
+                                        <f:param value="#{fileItem.id}" name="delete_file_id" />
+                                	<h:graphicImage value="/resources/img/trash.gif"  />
+                                    </h:commandLink>
+                                </ui:repeat>
+                                
+                                 <h:inputFile id="file" value="#{taskListBean.file}"/>
+                               <h:commandButton value="#{i18n.upload}" action="#{taskListBean.upload}"/> 
+                               </h:panelGrid>
+                        <br/>
+                        <h:inputHidden value="#{taskListBean.newTaskBean.id}" />
+                        </h:form>  
+                        </div>
+                    </div>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </f:view>
+</html>

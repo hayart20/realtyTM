@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <h:head>
+        <ui:insert name="header"></ui:insert>
+        <ui:include src="/WEB-INF/layout/main_header.xhtml"/>
+    </h:head>
+    <h:body>
+        <div class="container">
+            <div class="header"> <h:form>
+                <ui:insert name="menu"></ui:insert>               
+                    <ul class="nav nav-pills" >
+                        <c:choose>
+                        <c:when test="${request.requestURI == '/options/user/user_overview.jsf' 
+                                                or request.requestURI == '/options/priority/priority_overview.jsf' 
+                                                or request.requestURI == '/options/role/role_overview.jsf' 
+                                                or request.requestURI == '/options/status/status_overview.jsf'
+                                                }">
+                                    <li class="active"><a href="#{request.contextPath}/options/user/user_overview.jsf">#{i18n.options}</a></li>
+                                    <li><a href="#{request.contextPath}/task/index.jsf">#{i18n.overview}</a></li>
+                                    <li><a href="#{request.contextPath}/account/index.jsf">#{i18n.account}</a></li>
+                                </c:when>
+                        <c:when test="${request.requestURI == '/realtyTM/task/index.jsf' 
+                                        or request.requestURI == '/realtyTM/task/task_add.jsf' }">
+                            <li><a href="#{request.contextPath}/options/user/user_overview.jsf">#{i18n.options}</a></li>
+                            <li class="active"><a href="#{request.contextPath}/task/index.jsf">#{i18n.overview}</a></li>
+                            <li><a href="#{request.contextPath}/account/index.jsf">#{i18n.account}</a></li>
+                        </c:when>
+                         <c:when test="${request.requestURI == '/realtyTM/account/index.jsf'}">
+                            <li><a href="#{request.contextPath}/options/user/user_overview.jsf">#{i18n.options}</a></li>
+                            <li><a href="#{request.contextPath}/task/index.jsf">#{i18n.overview}</a></li>
+                            <li class="active"><a href="#{request.contextPath}/account/index.jsf">#{i18n.account}</a></li>
+                        </c:when>    
+                        <c:otherwise>
+                            <li ><a href="#{request.contextPath}/options/user/user_overview.jsf">#{i18n.options}</a></li>
+                            <li><a href="#{request.contextPath}/task/index.jsf">#{i18n.overview}</a></li>
+                            <li><a href="#{request.contextPath}/account/index.jsf">#{i18n.account}</a></li>
+                        </c:otherwise>
+                      </c:choose>
+                        <li><h:commandLink  action="#{userLoginBean.logout}" value="#{i18n.logout} #{userBean.name}" /></li>
+                    </ul>
+               
+                 
+                </h:form>
+            </div>
+            <div>
+                <ui:insert name="search"></ui:insert>
+                
+            </div>
+            <ui:insert name="content"></ui:insert>
+            <div class="row marketing">
+              
+            </div>
+            <div class="footer">
+                <ui:insert name="footer"></ui:insert>
+              <p>#{i18n.companyFooter}</p>
+            </div>
+        </div> <!-- /container -->
+    </h:body>
+</html>
+

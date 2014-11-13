@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <ui:insert name="header"></ui:insert>
+        <ui:include src="/WEB-INF/layout/main_header.xhtml"/>
+    </h:head>
+    <h:body>
+        <div class="container">
+            <div class="header">
+                <ui:insert name="menu"></ui:insert>               
+                
+            </div>
+            <div>
+                <ui:insert name="search"></ui:insert>
+                
+            </div>
+            <ui:insert name="content"></ui:insert>
+            <div class="row marketing">
+              
+            </div>
+            <div class="footer">
+                <ui:insert name="footer"></ui:insert>
+              <p>#{i18n.companyFooter}</p>
+            </div>
+        </div> <!-- /container -->
+    </h:body>
+</html>
+
